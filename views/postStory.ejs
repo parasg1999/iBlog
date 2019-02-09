@@ -46,7 +46,7 @@
         }
 
         function submitStory() {
-            var arr = [];
+            var arr = [], arObj = {};
             $('.node').each(function(index, element) {
                 var obj = {};
                 obj.content = $(element).children('.content').val();
@@ -63,12 +63,14 @@
                 }
 
                 arr.push(obj);
-
+                arObj.nodes = arr;
+                
             });
 
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "/writing/post", true);
-            console.log(arr);
-            xhttp.send(arr);
+            $.ajax({
+                url: "/writing/post",
+                type: "post",
+                data: arObj
+            })
         }
     </script>
