@@ -8,6 +8,12 @@ var blogSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Node"
     },
+    author: {
+        type: String
+    }, 
+    rating: {
+        type: Number
+    },
     nodes: [
         {
             type: mongoose.Schema.Types.ObjectId,

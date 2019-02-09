@@ -1,7 +1,7 @@
 <% include ./partials/header.ejs %>
 
 
-    <input type="text" name="title" placeholder="Title here..">
+    <input type="text" id="title" name="title" placeholder="Title here..">
 
     <div id="storyBoard"></div>
 
@@ -46,7 +46,8 @@
         }
 
         function submitStory() {
-            var arr = [], arObj = {};
+            var arr = [], arObj = {}, blog={};
+            blog.name = $('#title').val();
             $('.node').each(function(index, element) {
                 var obj = {};
                 obj.content = $(element).children('.content').val();
@@ -64,13 +65,17 @@
 
                 arr.push(obj);
                 arObj.nodes = arr;
+                arObj.blog = blog;
                 
             });
 
             $.ajax({
                 url: "/writing/post",
                 type: "post",
-                data: arObj
+                data: arObj,
+                success: function() {
+                    window.location.replace('/writing/viewAllBlogs');
+                }
             })
         }
     </script>
