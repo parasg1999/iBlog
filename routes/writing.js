@@ -124,7 +124,7 @@ router.get("/edit/:id", function(req, res) {
                     for(var i = 0 ; ; i++) {        
                         // if(typeof nodesArr[index].content !== 'undefined') {
                             console.log("HELLo");
-                            res.render("test", {nodesArr});
+                            res.render("edit", {blog, nodesArr});
                             break;
                         // }
                     }
