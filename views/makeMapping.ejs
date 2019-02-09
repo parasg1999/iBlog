@@ -1,12 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <%= x %>
+    <h1 id="title"><%=blog.name %></h1>
+    <div class="board">
+        <%for(var i = 0 ; i < nodesArr.length ; i++) { %>
+            <div class="node">
+                <strong>ID: </strong><%=nodesArr[i]._id %><p class="content"><strong>CONTENT: </strong><%=nodesArr[i].content %>
+                <br />
+                <% if(nodesArr[i].end === true) { %>
+                    <strong>This is the end</strong>
+                <% } else { %>
+                    <strong>QUESTION: </strong><%=nodesArr[i].question.content %><br />
+                    <strong>OPTIONS:</strong><br />
+                    <% for(var j = 0 ; j < nodesArr[i].question.options.length ; j++) { %>
+                        <span class="keys"><%= nodesArr[i].question.options[j].key %></span>: 
+                        <input class="mapOption" type="text" placeholder="ID here...">
+                        <br />
+                    <% } %>
+                    <br /></p>
+                    <button class="save" onclick="saveNode('<%=nodesArr[i]._id%>', '<%=i%>')">Save</button>
+
+                <% } %>
+                </p>
+                <br />
+            </div>
+                <!-- <input class="end" type="checkbox" checked>Story Ends?<br /> -->
+        <% } %>
+    </div>
 </body>
+
+<script>
+    function saveNode(id, index) {
+        console.log(index);
+        // console.log("HELLo");
+        var sendObj = {};
+        sendObj.nodeId = id;
+
+        var options = [];
+
+        $(`.node:eq(${index})`)
+        .children('.content').children('.mapOption').each(function (index, element) {
+            var obj = {};
+            // obj.key = opArr[index];
+            // console.log($(element).val());
+            obj.mapping = $(element).val();
+            options.push(obj);
+        });
+
+        sendObj.mappings = options;
+        // console.log(sendObj);
+
+        $.ajax({
+            url: "/writing/edit/"+id,
+            type: "post",
+            data: sendObj,
+            // success: function() {
+            //     window.location.replace('/writing/viewAllBlogs');
+            // }
+        });
+    }
+</script>
+
 </html>

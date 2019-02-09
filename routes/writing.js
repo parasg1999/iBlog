@@ -22,10 +22,10 @@ router.get("/postStory", function(req, res) {
     res.render('postStory');
 });
 
-router.get("/makeMaps", function(req, res) {
-    var x = 3;
-    res.render('makeMapping', {x});
-});
+// router.get("/makeMaps", function(req, res) {
+//     var x = 3;
+//     res.render('makeMapping', {x});
+// });
 
 router.get("/viewAllBlogs", function(req, res) {
     var blogs;
@@ -111,6 +111,28 @@ router.get("/postStory", function(req, res) {
     })
 });
 
+router.post("/edit/:id", function(req, res) {
+    // console.log(req.body);
+    Node.findOne({_id: req.body.nodeId})
+    .then((node) => {
+        var x = 0;
+        // console.log(JSON.stringify(gotNode, undefined, 4));
+        node.question.options.forEach((option, index) => {
+            // gotNode.question.options[index].mapping = req.body.mappings[index].mapping;
+            console.log(req.body);
+            node.question.options[index].mapping = req.body.mappings[index].mapping;
+            if((req.body.mappings.length - 1) === index) {
+                Node.findOneAndUpdate({_id: req.body.nodeId} , node , function (err, result) {
+                    if(!err) {
+                        res.redirect("/writing/viewAllBlogs");
+                    }
+                });
+            }
+        });
+
+    });
+});
+
 router.get("/edit/:id", function(req, res) {
     var nodesArr = [];
     // console.log(req.params.id);
@@ -118,15 +140,15 @@ router.get("/edit/:id", function(req, res) {
         blog.nodes.forEach((blogNode, index) => {
             // console.log(blogNode);
             Node.findOne({_id: blogNode}).then(node => {
-                nodesArr.push(node);
+                nodesArr[index] = node;
             }).then(() => {
                 if(index === (blog.nodes.length - 1) ) {
                     for(var i = 0 ; ; i++) {        
-                        // if(typeof nodesArr[index].content !== 'undefined') {
-                            console.log("HELLo");
-                            res.render("edit", {blog, nodesArr});
+                        if(typeof nodesArr[index]._id !== 'undefined') {
+                            // console.log("HELLo");
+                            res.render("makeMapping", {blog, nodesArr});
                             break;
-                        // }
+                        }
                     }
                 }
             });
