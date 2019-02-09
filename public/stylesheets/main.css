@@ -18,13 +18,13 @@ hr.style-two {
     /* Full-height: remove this if you want "auto" height */
     width: 15em;
     /* Set the width of the sidebar */
-    position: fixed;
+    position: relative;
     /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1;
     /* Stay on top */
     top: 5;
     /* Stay at the top */
-    right: 0;
+    float: right;
     background-color: #cfcfea;
     /* Black */
     overflow-x: auto;
@@ -69,8 +69,4 @@ hr.style-two {
     .sidenav a {
         font-size: 18px;
     }
-}
-
-.blog {
-    /* padding-right: 20%; */
 }

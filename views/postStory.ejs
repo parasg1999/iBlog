@@ -1,81 +1,96 @@
 <% include ./partials/header.ejs %>
 
+    <br>
+    <br>
+    <div class="container">
+        <div class="ui input focus">
+            <input type="text" placeholder="Title">
+        </div>
+        <br><br>
+        <div id="storyBoard"></div>
 
-    <input type="text" id="title" name="title" placeholder="Title here..">
 
-    <div id="storyBoard"></div>
+        <button class="ui violet button" onclick="addBlock()">Add block</button>
 
+        <button class="ui green button" onclick="submitStory()">Submit</button>
 
-    <button onclick="addBlock()">Add block</button>
+        <script>
+            var data = [];
 
-    <button onclick="submitStory()">Submit</button>
+            var addBlockDiv = '<div class="card">' +
+                '<div class="card-body">' +
+                '<div class="node">' +
+                '<textarea class="content" style="resize: none" rows="10" cols="50" placeholder="Content here...">' +
+                '</textarea> <br />' + '<br><div class="ui toggle checkbox">' +
+                '<input class="end" type="checkbox" name="public"checked>' +
+                '<label>Story Ends?</label><br></div></div><br />'
+            '</div>' + '</div>';
 
-    <script>
-        var data = [];
+            var questionDiv = '<div class="question">' +
+                '<input type="text" placeholder="Question Content.." class="question_content">' +
 
-        var addBlockDiv = '<div class="node">' +
-            '<textarea class="content" style="resize: none" rows="4" cols="50" placeholder="Content here...">' +
-            '</textarea> <br />' +
-            '<input class="end" type="checkbox" checked>Story Ends?</div><br />';
+                '<br /><input type="text" placeholder="Option.." class="options">' +
+                '<button class="addOption">Add Option</button>' +
+                '</div>'
+            '</div>' + '</div>'
 
-        var questionDiv = '<div class="question">' +
-            '<input type="text" placeholder="Question Content.." class="question_content">' +
-            '<br /><input type="text" placeholder="Option.." class="options">' +
-            '<button class="addOption">Add Option</button>' +
-            '</div>'
-
-        $('document').ready(function() {
-            addBlock();
-        });
-
-        $(document).on('click', 'input[type=checkbox]', function() {
-            $(this).parent().append(questionDiv);
-        });
-
-        $(document).on('click', '.addOption', function() {
-            var optionInput = '<br /><input type="text" placeholder="Option.." class="options">';
-            $(this).parent().append(optionInput);
-        });
-
-        $(document).on('click', 'input[type=checkbox]:checked', function() {
-            $(this).parent().children(".question").empty();
-        });
-
-        function addBlock() {
-            $('#storyBoard').append(addBlockDiv);
-        }
-
-        function submitStory() {
-            var arr = [], arObj = {}, blog={};
-            blog.name = $('#title').val();
-            $('.node').each(function(index, element) {
-                var obj = {};
-                obj.content = $(element).children('.content').val();
-                obj.end = false;
-                if ($(element).children('.end').is(':checked')) {
-                    obj.end = true;
-                }
-                if (obj.end === false) {
-                    obj.question = $(element).children('.question').children('.question_content').val();
-                    obj.options = [];
-                    $(element).children('.question').children('.options').each(function(pos, option) {
-                        obj.options.push($(option).val());
-                    });
-                }
-
-                arr.push(obj);
-                arObj.nodes = arr;
-                arObj.blog = blog;
-                
+            $('document').ready(function() {
+                addBlock();
             });
 
-            $.ajax({
-                url: "/writing/post",
-                type: "post",
-                data: arObj,
-                success: function() {
-                    window.location.replace('/writing/viewAllBlogs');
-                }
-            })
-        }
-    </script>
+            $(document).on('click', 'input[type=checkbox]', function() {
+                $(this).parent().append(questionDiv);
+            });
+
+            $(document).on('click', '.addOption', function() {
+                var optionInput = '<br /><input type="text" placeholder="Option.." class="options">';
+                $(this).parent().append(optionInput);
+            });
+
+            $(document).on('click', 'input[type=checkbox]:checked', function() {
+                $(this).parent().children(".question").empty();
+            });
+
+            function addBlock() {
+                $('#storyBoard').append(addBlockDiv);
+            }
+
+            function submitStory() {
+                var arr = [],
+                    arObj = {},
+                    blog = {};
+                blog.name = $('#title').val();
+                $('.node').each(function(index, element) {
+                    var obj = {};
+                    obj.content = $(element).children('.content').val();
+                    obj.end = false;
+                    if ($(element).children('.end').is(':checked')) {
+                        obj.end = true;
+                    }
+                    if (obj.end === false) {
+                        obj.question = $(element).children('.question').children('.question_content').val();
+                        obj.options = [];
+                        $(element).children('.question').children('.options').each(function(pos, option) {
+                            obj.options.push($(option).val());
+                        });
+                    }
+
+                    arr.push(obj);
+                    arObj.nodes = arr;
+                    arObj.blog = blog;
+
+                });
+
+                $.ajax({
+                    url: "/writing/post",
+                    type: "post",
+                    data: arObj,
+                    success: function() {
+                        window.location.replace('/writing/viewAllBlogs');
+                    }
+                })
+            }
+        </script>
+    </div>
+
+    <% include ./partials/footer %>
