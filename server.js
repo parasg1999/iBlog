@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 var express = require('express'),
     ejs = require('ejs'),
     app = express(),
@@ -21,7 +22,9 @@ mongoose.connect(url, {
     }
 });
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 
 app.set("view engine", "ejs");
@@ -31,7 +34,9 @@ app.use("/", indexRoutes);
 app.use("/reading", readerRoutes);
 app.use("/writing", writerRoutes);
 app.use(function(req, res, next) {
-    res.status(404).render('404', { title: "sorry Page not found" });
+    res.status(404).render('404', {
+        title: "sorry Page not found"
+    });
 });
 
 console.log(process.env.PORT);
