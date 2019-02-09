@@ -1,0 +1,74 @@
+<% include ./partials/header.ejs %>
+
+
+    <input type="text" name="title" placeholder="Title here..">
+
+    <div id="storyBoard"></div>
+
+
+    <button onclick="addBlock()">Add block</button>
+
+    <button onclick="submitStory()">Submit</button>
+
+    <script>
+        var data = [];
+
+        var addBlockDiv = '<div class="node">' +
+            '<textarea class="content" style="resize: none" rows="4" cols="50" placeholder="Content here...">' +
+            '</textarea> <br />' +
+            '<input class="end" type="checkbox" checked>Story Ends?</div><br />';
+
+        var questionDiv = '<div class="question">' +
+            '<input type="text" placeholder="Question Content.." class="question_content">' +
+            '<br /><input type="text" placeholder="Option.." class="options">' +
+            '<button class="addOption">Add Option</button>' +
+            '</div>'
+
+        $('document').ready(function() {
+            addBlock();
+        });
+
+        $(document).on('click', 'input[type=checkbox]', function() {
+            $(this).parent().append(questionDiv);
+        });
+
+        $(document).on('click', '.addOption', function() {
+            var optionInput = '<br /><input type="text" placeholder="Option.." class="options">';
+            $(this).parent().append(optionInput);
+        });
+
+        $(document).on('click', 'input[type=checkbox]:checked', function() {
+            $(this).parent().children(".question").empty();
+        });
+
+        function addBlock() {
+            $('#storyBoard').append(addBlockDiv);
+        }
+
+        function submitStory() {
+            var arr = [];
+            $('.node').each(function(index, element) {
+                var obj = {};
+                obj.content = $(element).children('.content').val();
+                obj.end = false;
+                if ($(element).children('.end').is(':checked')) {
+                    obj.end = true;
+                }
+                if (obj.end === false) {
+                    obj.question = $(element).children('.question').children('.question_content').val();
+                    obj.options = [];
+                    $(element).children('.question').children('.options').each(function(pos, option) {
+                        obj.options.push($(option).val());
+                    });
+                }
+
+                arr.push(obj);
+
+            });
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/writing/post", true);
+            console.log(arr);
+            xhttp.send(arr);
+        }
+    </script>

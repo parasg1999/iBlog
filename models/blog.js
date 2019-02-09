@@ -4,6 +4,10 @@ var blogSchema = mongoose.Schema({
     name: {
         type: String
     },
+    initialNode: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Node"
+    },
     nodes: [
         {
             type: mongoose.Schema.Types.ObjectId,
