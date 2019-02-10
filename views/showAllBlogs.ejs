@@ -1,0 +1,15 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<% for(var i = 0 ; i < blogs.length; i++) { %>
+    <div>
+        <h3><%=blogs[i].name %></h3>
+        <p><%= nodesArr[i].content %></p>
+        <input type="submit" value="READ" onclick="readRedirect('<%=blogs[i]._id%>')">
+    </div>
+<% }%>
+
+<script>
+    function readRedirect (id) {
+        window.location.replace("/reading/read/"+id);
+    }
+</script>

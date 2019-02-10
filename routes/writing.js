@@ -28,7 +28,6 @@ router.get("/postStory", function(req, res) {
 // });
 
 router.get("/viewAllBlogs", function(req, res) {
-    var blogs;
     Blog.find({}, function(err, blogs) {
         var nodesArr = [];
         blogs.forEach((blog, index) => {

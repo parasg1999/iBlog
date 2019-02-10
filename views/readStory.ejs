@@ -1,0 +1,47 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<h1><%=blog.name%></h1>
+<div id="contentDiv">
+    <p id="content"><%=nodesArr[0].content %></p>
+</div>
+<div id="optionsFooter">
+    <p id="question"><%= nodesArr[0].question.content %></p>
+    <div id="options">
+    <% for(var j=0; j < nodesArr[0].question.options.length ; j++) { %>
+        <button onclick="loadStory('<%= nodesArr[0].question.options[j].mapping %>')"><%= nodesArr[0].question.options[j].key %></button>
+    <% } %>
+    </div>
+</div>
+
+
+<script>
+
+    function renderNewData(data) {
+        // console.log(data.content);
+        $('#content').html(($('#content').html() + "<br />" + data.content));
+        
+        // console.log(typeof data.end);
+
+
+        $('#options').empty();
+        if(data.end === false) {
+            $('#question').text(data.question.content);
+            for(var i = 0 ; i < data.question.options.length; i++) {
+                $('#options').append(`<button onclick="loadStory('${data.question.options[i].mapping}')">${data.question.options[i].key}</button>`);
+            }
+        } else {
+            $('#question').text("END OF STORY");
+        }
+    }
+
+    function loadStory(mapId, nodesArr) {
+        $.ajax({
+            url: "/reading/load/"+mapId,
+            type: "get",
+            success: function(data) {
+                renderNewData(data);
+            }
+        });
+
+    }
+</script>
