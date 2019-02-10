@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
+<% include ./partials/header %>
     <h1 id="title"><%=blog.name %></h1>
+    
     <div class="board">
         <%for(var i = 0 ; i < nodesArr.length ; i++) { %>
-            <div class="node">
-                <strong>ID: </strong><%=nodesArr[i]._id %><p class="content"><strong>CONTENT: </strong><%=nodesArr[i].content %>
+            <div class="node " style="margin:1em;border: 2px solid #aaa;display:inline-block;">
+                <p style="margin: 1em" class="content"><strong>ID: </strong><%=nodesArr[i]._id %><br /><strong>CONTENT: </strong><%=nodesArr[i].content %>
                 <br />
                 <% if(nodesArr[i].end === true) { %>
                     <strong>This is the end</strong>
@@ -25,7 +17,7 @@
                         <br />
                     <% } %>
                     <br /></p>
-                    <button class="save" onclick="saveNode('<%=nodesArr[i]._id%>', '<%=i%>')">Save</button>
+                    <button style="margin-left:1em" class="save" onclick="saveNode('<%=nodesArr[i]._id%>', '<%=nodesArr[i]._id%>', '<%=i%>')">Save</button>
                 <% } %>
                 </p>
                 <br />
@@ -33,10 +25,14 @@
                 <!-- <input class="end" type="checkbox" checked>Story Ends?<br /> -->
         <% } %>
     </div>
+    <br/>
+    <form style="margin-left: 1rem" method="GET" action="/reading">
+        <input type="submit" value="Done">
+    </form>
 </body>
 
 <script>
-    function saveNode(id, index) {
+    function saveNode(id, objId, index) {
         console.log(index);
         // console.log("HELLo");
         var sendObj = {};
@@ -66,5 +62,4 @@
         });
     }
 </script>
-
-</html>
+<% include ./partials/footer %>

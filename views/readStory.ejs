@@ -29,7 +29,7 @@
                 $('#options').append(`<button class="opt" onclick="loadStory('${data.question.options[i].mapping}')">${data.question.options[i].key}</button>`);
             }
         } else {
-            $('#question').text("END OF STORY");
+            $('#question').html(`<center><button>Thank You!</button></center>`);
         }
     }
 
