@@ -1,4 +1,5 @@
 # turbo-pancake
 Hack 3.0 project
-**ABOUT** our blog-'iBlog'
+**ABOUT** our blog-'iBlog'  
+
 **iBlog** is an *interactive* and user *friendly* blog, that enthralls the blogger and the user, by making way for both to twist blogs and articles in as many ways as they want.iBlog is an effort to mordernise the custom blogging culture, so as to let its users unleash their creativity and to provide the blogger with a tool to play with the psychology of his/her readers,hence providing better content to the blogging world. Just like the tradtional blogs, the 'iBlogs' also start with some content but here, the user is asked several questions, his answers to which would decide what content is to be shown to the user in next sections. This way, the user can actually indirectly choose what content he wants to see. Using this unique feature of iBlogs, its users can actually join their own sections and see a very different plot each time they visit a blog. The entire concept of iBlogs is a next step in the world of blogging, that altogether brings the idea of multi-directional communication, giving both the bloggers and the readers an interactive and wonderful blogging experience!!  
