@@ -39,7 +39,9 @@ router.get("/viewAllBlogs", function(req, res) {
                 if(index === (blogs.length - 1) ) {
                     for(var i = 0 ; ; i++) {        
                         if(typeof nodesArr[index].content !== 'undefined') {
-                            res.render("writerAllBlogs", {blogs, nodesArr});
+                            setTimeout(() => {
+                                res.render("writerAllBlogs", {blogs, nodesArr});
+                            }, 2000);
                             break;
                         }
                     }
@@ -104,11 +106,7 @@ router.post("/post", function(req, res) {
 
 });
 
-router.get("/postStory", function(req, res) {
-    var newBlog = new Blog({
 
-    })
-});
 
 router.post("/edit/:id", function(req, res) {
     // console.log(req.body);
@@ -123,7 +121,9 @@ router.post("/edit/:id", function(req, res) {
             if((req.body.mappings.length - 1) === index) {
                 Node.findOneAndUpdate({_id: req.body.nodeId} , node , function (err, result) {
                     if(!err) {
-                        res.redirect("/writing/viewAllBlogs");
+                        setTimeout(() => {
+                            res.redirect("/writing/viewAllBlogs");
+                        }, 2000);
                     }
                 });
             }
@@ -144,7 +144,10 @@ router.get("/edit/:id", function(req, res) {
                 if(index === (blog.nodes.length - 1) ) {
                     for(var i = 0 ; ; i++) {        
                         if(typeof nodesArr[index]._id !== 'undefined') {
-                            res.render("makeMapping", {blog, nodesArr});
+                            setTimeout(() => {
+                                res.render("makeMapping", {blog, nodesArr});
+                            }, 2000);
+                            
                             break;
                         }
                     }

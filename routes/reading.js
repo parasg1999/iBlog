@@ -25,7 +25,9 @@ router.get('/read/:id', function(req, res) {
                 if(index === (blog.nodes.length - 1)) {
                     for(var i = 0 ; ; i++) {        
                         if(typeof nodesArr[index]._id !== 'undefined') {
-                            res.render("readStory", {blog, nodesArr});
+                            setTimeout(() => {
+                                res.render("readStory", {blog, nodesArr});
+                            }, 2000);
                             break;
                         }
                     }
@@ -48,7 +50,10 @@ router.get("/", function(req, res) {
                 if(index === (blogs.length - 1) ) {
                     for(var i = 0 ; ; i++) {        
                         if(typeof nodesArr[index].content !== 'undefined') {
-                            res.render("showAllBlogs", {blogs, nodesArr});
+                            setTimeout(() => {
+                                res.render("showAllBlogs", {blogs, nodesArr});
+                            }, 2000);
+                            
                             break;
                         }
                     }
