@@ -144,7 +144,6 @@ router.get("/edit/:id", function(req, res) {
                 if(index === (blog.nodes.length - 1) ) {
                     for(var i = 0 ; ; i++) {        
                         if(typeof nodesArr[index]._id !== 'undefined') {
-                            // console.log("HELLo");
                             res.render("makeMapping", {blog, nodesArr});
                             break;
                         }

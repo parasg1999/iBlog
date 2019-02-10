@@ -1,10 +1,15 @@
+<% include ./partials/header %>
 <% for (var i = 0 ; i < blogs.length ; i++) { %>
-    <div>
-        <h1><%=blogs[i].name %></h1>
-        <p><%= nodesArr[i].content %></p>
-        <form method="GET" action="/writing/edit/<%=blogs[i]._id %>">
-            <input type="submit">
-        </form>
 
+    <div class="card" style="width: 18rem;float:left;margin-left:1rem;margin-top:0.5rem">
+        <div class="card-body">
+            <h5 class="card-title"><%=blogs[i].name %></h5>
+            <p class="card-text"><%= nodesArr[i].content.substring(0,59); %></p>
+            <form method="GET" action="/writing/edit/<%=blogs[i]._id %>">
+                <input class="btn btn-primary" value="Update" type="submit">
+            </form>
+        </div>
     </div>
         <% } %>
+
+<% include ./partials/footer %>

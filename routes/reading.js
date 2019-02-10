@@ -22,7 +22,7 @@ router.get('/read/:id', function(req, res) {
             Node.findOne({_id: blogNode}).then(node => {
                 nodesArr[index] = node;
             }).then(() => {
-                if(index === (blog.nodes.length - 1) ) {
+                if(index === (blog.nodes.length - 1)) {
                     for(var i = 0 ; ; i++) {        
                         if(typeof nodesArr[index]._id !== 'undefined') {
                             res.render("readStory", {blog, nodesArr});
