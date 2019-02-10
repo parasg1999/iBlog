@@ -14,7 +14,7 @@ var writerRoutes = require("./routes/writing");
 var readerRoutes = require("./routes/reading");
 
 // var url = "mongodb://localhost:27017/int_blog";
-var urll = "mongodb://myBlog:password1@ds127995.mlab.com:27995/int_blog"
+var url = "mongodb://myBlog:password1@ds127995.mlab.com:27995/int_blog"
 mongoose.connect(url, {
     useNewUrlParser: true
 }, function(err, db) {
