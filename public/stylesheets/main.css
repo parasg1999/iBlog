@@ -80,6 +80,14 @@ hr.style-two {
     color: #777
 }
 
+.opt {
+    margin-left: 1em;
+}
+
+#content,#optionsFooter {
+    padding: 1rem;
+}
+
 input[type=checkbox] {
     border: 1px solid red;
 }

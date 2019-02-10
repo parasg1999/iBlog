@@ -108,7 +108,7 @@ router.get("/load/:id", function(req, res) {
     Node.findOne({_id: req.params.id})
     .then((node) => {
         res.send(node);
-    })
-})
+    });
+});
 
 module.exports = router;

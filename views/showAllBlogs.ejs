@@ -1,10 +1,14 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<% include ./partials/header %>
 
 <% for(var i = 0 ; i < blogs.length; i++) { %>
-    <div>
-        <h3><%=blogs[i].name %></h3>
-        <p><%= nodesArr[i].content %></p>
-        <input type="submit" value="READ" onclick="readRedirect('<%=blogs[i]._id%>')">
+    
+    <div class="card" style="width: 18rem;float:left;margin-left:1rem;margin-top:0.5rem">
+        <div class="card-body">
+            <h5 class="card-title"><%=blogs[i].name %></h5>
+            <p class="card-text"><%= nodesArr[i].content.substring(0,59); %></p>
+            <input class="btn btn-primary" onclick="readRedirect('<%=blogs[i]._id%>')" value="Read" type="submit">
+            
+        </div>
     </div>
 <% }%>
 
@@ -13,3 +17,5 @@
         window.location.replace("/reading/read/"+id);
     }
 </script>
+
+<% include ./partials/footer %>

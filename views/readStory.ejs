@@ -1,14 +1,13 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<% include ./partials/header %>
 <h1><%=blog.name%></h1>
 <div id="contentDiv">
     <p id="content"><%=nodesArr[0].content %></p>
 </div>
 <div id="optionsFooter">
-    <p id="question"><%= nodesArr[0].question.content %></p>
+    <p id="question"><strong>Question:  </strong><%= nodesArr[0].question.content %></p>
     <div id="options">
     <% for(var j=0; j < nodesArr[0].question.options.length ; j++) { %>
-        <button onclick="loadStory('<%= nodesArr[0].question.options[j].mapping %>')"><%= nodesArr[0].question.options[j].key %></button>
+        <button class="opt" onclick="loadStory('<%= nodesArr[0].question.options[j].mapping %>')"><%= nodesArr[0].question.options[j].key %></button>
     <% } %>
     </div>
 </div>
@@ -25,9 +24,9 @@
 
         $('#options').empty();
         if(data.end === false) {
-            $('#question').text(data.question.content);
+            $('#question').html('<strong>Question:  </strong>' + data.question.content);
             for(var i = 0 ; i < data.question.options.length; i++) {
-                $('#options').append(`<button onclick="loadStory('${data.question.options[i].mapping}')">${data.question.options[i].key}</button>`);
+                $('#options').append(`<button class="opt" onclick="loadStory('${data.question.options[i].mapping}')">${data.question.options[i].key}</button>`);
             }
         } else {
             $('#question').text("END OF STORY");
@@ -45,3 +44,5 @@
 
     }
 </script>
+
+<% include ./partials/footer %>
