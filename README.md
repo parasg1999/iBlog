@@ -1,4 +1,4 @@
-# turbo-pancake
+# iBlog
 Hack 3.0 project
 **ABOUT** our blog-'iBlog'  
 
