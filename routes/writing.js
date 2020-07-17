@@ -4,15 +4,11 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var async = require('async');
 
-// var ObjectId = require('mongodb').ObjectID;
-
 var Node = require('../models/node');
 var Blog = require('../models/blog');
 
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
-
-// var jsonParser = bodyParser.json({ type: 'application/json'});
 
 router.get("/", function(req, res) {
     res.render('index');
@@ -22,19 +18,12 @@ router.get("/postStory", function(req, res) {
     res.render('postStory');
 });
 
-// router.get("/makeMaps", function(req, res) {
-//     var x = 3;
-//     res.render('makeMapping', {x});
-// });
-
 router.get("/viewAllBlogs", function(req, res) {
     Blog.find({}, function(err, blogs) {
         var nodesArr = [];
         blogs.forEach((blog, index) => {
             Node.findOne({_id: blog.initialNode}).then(node => {
                     nodesArr[index] = node;
-                    // console.log(JSON.stringify(node));
-                    // console.log('Check' ,nodesArr);
             }).then(() => {
                 if(index === (blogs.length - 1) ) {
                     for(var i = 0 ; ; i++) {        
@@ -49,25 +38,9 @@ router.get("/viewAllBlogs", function(req, res) {
             });
         });
     });
-
-    // Blog.find({}).then((blogs) => {
-    //     var nodesArr = [];
-    //     blogs.forEach(blog => {
-    //         // nodesArr = [];
-    //         Node.findOne({_id: blog.initialNode}, function(err, node) {
-    //             if(!err) {
-    //                 nodesArr.push(node);
-    //                 console.log(JSON.stringify(node));
-    //                 console.log('Check' ,nodesArr);
-    //             }
-    //         });
-    //     });
-    // })
 });
 
 router.post("/post", function(req, res) {
-    // console.log(JSON.stringify(req.body));
-
     var reqBlog = req.body.blog;
     var nodes = [];
     var newBlog = new Blog({
@@ -109,13 +82,10 @@ router.post("/post", function(req, res) {
 
 
 router.post("/edit/:id", function(req, res) {
-    // console.log(req.body);
     Node.findOne({_id: req.body.nodeId})
     .then((node) => {
         var x = 0;
-        // console.log(JSON.stringify(gotNode, undefined, 4));
         node.question.options.forEach((option, index) => {
-            // gotNode.question.options[index].mapping = req.body.mappings[index].mapping;
             console.log(req.body);
             node.question.options[index].mapping = req.body.mappings[index].mapping;
             if((req.body.mappings.length - 1) === index) {
