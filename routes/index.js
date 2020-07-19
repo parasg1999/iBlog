@@ -5,8 +5,4 @@ router.get("/", function (req, res) {
   res.redirect('/reading');
 });
 
-// router.get("/contact", function (req, res) {
-//   res.redirect('/c');
-// });
-
 module.exports = router;
